@@ -7,34 +7,34 @@ for(let i=0; i<allButtons.length; i++){
       transform: 'translate('+p+'px)'
     })
     n = index
-    allButtons.eq(n)
-      .addClass('red')
-      .siblings('.red').removeClass('red')
+    activeButton(allButtons.eq(n))
   })
 }
 
 var n = 0
 var size = allButtons.length
 allButtons.eq(n % size).trigger('click')
-  .addClass('red')
-.siblings('.red').removeClass('red')
 
-var timer = setInterval(function(){
-  n+=1
-  allButtons.eq(n % size).trigger('click')
+var timer = setTimer()
+function setTimer(){
+  return setInterval(function(){
+        n+=1
+        allButtons.eq(n % size).trigger('click')
+          .addClass('red')
+          .siblings('.red').removeClass('red')
+        },3000)
+}
+
+function activeButton($button){
+  $button
     .addClass('red')
     .siblings('.red').removeClass('red')
-},3000)
+}
 
 $('.window').on('mouseenter',function(){
   window.clearInterval(timer)
 })
 
 $('.window').on('mouseleave',function(){
-  timer = setInterval(function(){
-  n+=1
-  allButtons.eq(n % size).trigger('click')
-    .addClass('red')
-    .siblings('.red').removeClass('red')
-  },3000)
+  timer = setTimer()
 })
